@@ -1,0 +1,25 @@
+appName: datagen-api
+container_name: datagen-api-container
+port: 8080
+
+service:
+  port: 8080
+  targetPort: 8080
+  type: ClusterIP
+
+namespace: dev
+
+deployment:
+  replicas: 1
+
+configmap:
+  name: datagen-api-configmap
+  data:
+    CUSTOM_HEADER: "data generator and make it available with FastAPI!"
+
+image:
+  name: e4espootin/datagen_api
+  tag: latest
+
+env:
+  var1: AWS_ACCESS_KEY_ID

@@ -1,0 +1,15 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+helllo.py
+.archive
+.ruff_cache/
+datagen_api/app/routers/sample_data/*
+# Virtual environments
+.venv
+.env
+
