@@ -1,0 +1,59 @@
+
+2025-02-21 12:43:08,455 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-21 12:43:08,455 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-21 12:43:08,455 INFO Kafka API Producer is running
+2025-02-21 12:43:08,455 INFO Kafka API Producer is running
+2025-02-21 12:43:08,455 INFO Dataset name: taxitrips
+2025-02-21 12:43:08,455 INFO Dataset name: taxitrips
+2025-02-21 12:43:08,504 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 12:43:08,504 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 12:43:08,504 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 12:43:08,504 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 14:22:30,599 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-21 14:22:30,599 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-21 14:22:30,599 INFO Kafka API Producer is running
+2025-02-21 14:22:30,599 INFO Kafka API Producer is running
+2025-02-21 14:22:30,599 INFO Dataset name: taxitrips
+2025-02-21 14:22:30,599 INFO Dataset name: taxitrips
+2025-02-21 14:22:30,628 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 14:22:30,628 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 14:22:30,628 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-21 14:22:30,628 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:19:20,842 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:19:20,842 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:19:20,842 INFO Kafka API Producer is running
+2025-02-22 10:19:20,842 INFO Kafka API Producer is running
+2025-02-22 10:19:20,843 INFO Dataset name: taxitrips
+2025-02-22 10:19:20,843 INFO Dataset name: taxitrips
+2025-02-22 10:19:20,890 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:19:20,890 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:19:20,890 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:19:20,890 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:19:20,891 ERROR Error in sending data to topic: taxitrips error: Invalid URL 'None/taxitrips/?num_samples=1': No scheme supplied. Perhaps you meant https://None/taxitrips/?num_samples=1?
+2025-02-22 10:19:20,891 ERROR Error in sending data to topic: taxitrips error: Invalid URL 'None/taxitrips/?num_samples=1': No scheme supplied. Perhaps you meant https://None/taxitrips/?num_samples=1?
+2025-02-22 10:19:20,892 INFO None
+2025-02-22 10:19:20,892 INFO None
+2025-02-22 10:20:05,822 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:20:05,822 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:20:05,822 INFO Kafka API Producer is running
+2025-02-22 10:20:05,822 INFO Kafka API Producer is running
+2025-02-22 10:20:05,822 INFO Dataset name: taxitrips
+2025-02-22 10:20:05,822 INFO Dataset name: taxitrips
+2025-02-22 10:20:05,850 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:20:05,850 INFO Raw datasets from env: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:20:05,850 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:20:05,850 INFO API list: {'taxitrips': '/taxitrips/?num_samples=1'}
+2025-02-22 10:20:05,851 ERROR Error in sending data to topic: taxitrips error: Invalid URL 'None/taxitrips/?num_samples=1': No scheme supplied. Perhaps you meant https://None/taxitrips/?num_samples=1?
+2025-02-22 10:20:05,851 ERROR Error in sending data to topic: taxitrips error: Invalid URL 'None/taxitrips/?num_samples=1': No scheme supplied. Perhaps you meant https://None/taxitrips/?num_samples=1?
+2025-02-22 10:20:05,851 INFO None
+2025-02-22 10:20:05,851 INFO None
+2025-02-22 10:20:52,277 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:20:52,277 INFO Arguments: Namespace(dsname='taxitrips')
+2025-02-22 10:20:52,277 INFO Kafka API Producer is running
+2025-02-22 10:20:52,277 INFO Kafka API Producer is running
+2025-02-22 10:20:52,277 INFO Dataset name: taxitrips
+2025-02-22 10:20:52,277 INFO Dataset name: taxitrips
+2025-02-22 10:20:52,314 ERROR Error in get_list: Expecting value: line 1 column 1 (char 0)
+2025-02-22 10:20:52,314 ERROR Error in get_list: Expecting value: line 1 column 1 (char 0)
+2025-02-22 10:20:52,314 ERROR Error in list_handler: Expecting value: line 1 column 1 (char 0)
+2025-02-22 10:20:52,314 ERROR Error in list_handler: Expecting value: line 1 column 1 (char 0)

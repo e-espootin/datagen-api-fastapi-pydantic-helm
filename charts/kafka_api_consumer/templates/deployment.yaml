@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+    # Add recommended Kubernetes labels
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/version: {{ .Values.image.tag }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+        tier: frontend
+    spec:
+      containers:
+      - name: {{ .Values.container_name }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.appName }}-aws-secret
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.appName }}-aws-secret
+              key: AWS_SECRET_ACCESS_KEY
+        - name: TOPIC
+          value: "{{ .Values.env.TOPIC }}"
+        - name: ALL_DATASETS
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: ALL_DATASETS
+        - name: API_LOCAL_URL
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: API_LOCAL_URL
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: KAFKA_BOOTSTRAP_SERVERS
+        - name: MESSAGES_BATCH_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: MESSAGES_BATCH_SIZE
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "1000m"
+          limits:
+            memory: "512Mi"
+            cpu: "2000m"
+        # Add healthcheck
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "echo 'healthy' && exit 0"  # Always returns exit code 0
+          initialDelaySeconds: 10
+          periodSeconds: 10

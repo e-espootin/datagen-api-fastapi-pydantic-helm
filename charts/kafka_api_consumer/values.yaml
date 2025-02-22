@@ -1,0 +1,32 @@
+appName: datagen-consumer
+container_name: datagen-consumer
+namespace: dev
+
+deployment:
+  replicas: 1
+
+configmap:
+  name: myconfigmap-consumer
+  data:
+    CUSTOM_HEADER: "data generator and make it available with FastAPI!"
+    topic: "taxitrips"
+
+image:
+  name: e4espootin/kafka_api_consumer
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+env:
+  TOPIC: taxitrips
+  MESSAGES_BATCH_SIZE: 5
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-plain.dev.svc.cluster.local:9092"
+  KAFKA_RELEASE: "kafka-plain"
+  #backup
+  KAFKA_BOOTSTRAP_B1: "10.42.0.100:9092"
+  KAFKA_BOOTSTRAP_B2: "kafka-plain.dev.svc.cluster.local:9092"
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""

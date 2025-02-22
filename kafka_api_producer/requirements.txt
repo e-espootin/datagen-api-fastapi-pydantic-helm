@@ -1,0 +1,4 @@
+requests
+confluent-kafka==2.8.0
+python-dotenv
+colorlog==6.9.0

@@ -1,0 +1,34 @@
+appName: datagen-producer
+container_name: datagen-producer
+
+
+service:
+  port: 8080
+  targetPort: 8080
+  type: ClusterIP
+
+namespace: dev
+
+deployment:
+  replicas: 1
+
+configmap:
+  name: myconfigmap-producer
+  data:
+    CUSTOM_HEADER: "data generator and make it available with FastAPI!"
+
+image:
+  name: e4espootin/kafka_api_producer
+  tag: latest
+
+env:
+  DSNAME: taxitrips
+  SLEEP_TIME_SEC: 4
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-plain.dev.svc.cluster.local:9092"
+  # Use Kubernetes service DNS for Kafka
+  # KAFKA_BOOTSTRAP_SERVERS: "kafka-plain.dev.svc.cluster.local:9092"
+  API_LOCAL_URL: "http://datagen-api.dev.svc.cluster.local:8080"
+  ALL_DATASETS: '{"taxitrips":"/taxitrips/?num_samples=1","cobot":"/sensors/cobot?sensor_id=cobot_1001&topic_name=cobot"}'
+  #
+  KAFKA_BOOTSTRAP_B1: "10.42.0.100:9092"
+  KAFKA_BOOTSTRAP_B2: "kafka-plain.dev.svc.cluster.local:9092"
