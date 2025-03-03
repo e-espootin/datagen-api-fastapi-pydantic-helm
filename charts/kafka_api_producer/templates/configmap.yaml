@@ -1,7 +1,7 @@
 kind: ConfigMap 
 apiVersion: v1 
 metadata:
-  name: {{ .Values.configmap.name }}
+  name: {{ .Release.Name }}-configmap
   namespace: {{ .Values.namespace }}
 data:
   BG_COLOR: '#12181b'

@@ -3,6 +3,7 @@ import random
 import pandas as pd
 import os
 from app.routers.models.taxitrip import TaxiTrip
+from datetime import datetime
 
 
 class Config:
@@ -49,12 +50,13 @@ class TaxiTrip_Gen:
             sample_data: list[TaxiTrip] = []
 
             for _ in range(num_samples):
+                request_datetime = self.fake.date_time_this_year()
                 record: TaxiTrip = {
                     "vendor_id": random.randint(1, 2),
-                    "log_datetime": self.fake.date_time_this_decade().isoformat(),
-                    "lpep_pickup_datetime": self.fake.date_time_this_decade().isoformat(),
+                    "log_datetime": request_datetime,
+                    "lpep_pickup_datetime": "",
                     "lpep_dropoff_datetime": "",
-                    "request_datetime": "",
+                    "request_datetime": request_datetime,
                     "passenger_count": random.randint(1, 4),
                     "trip_distance": sampled_rand_row["trip_distance"],
                     "ratecode_id": sampled_rand_row["RatecodeID"],
@@ -87,7 +89,8 @@ class TaxiTrip_Gen:
                         "fullname": self.fake.name(),
                         "credit_card": self.fake.credit_card_number(),
                         "address": str.replace(
-                            str.replace(self.fake.address(), ",", " - "), "\n", " "
+                            str.replace(self.fake.address(),
+                                        ",", " - "), "\n", " "
                         ),
                         "job": self.fake.job(),
                         "age": random.randint(18, 60),
@@ -132,13 +135,15 @@ class TaxiTrip_Gen:
                         ["Excellent", "Good", "Average", "Poor"]
                     ),
                 }
+                # pickup dropoff
+                record["lpep_pickup_datetime"] = (
+                    pd.to_datetime(record["request_datetime"])
+                    + pd.to_timedelta(random.randint(1, 60), unit="m")
+                ).isoformat()
+
                 record["lpep_dropoff_datetime"] = (
                     pd.to_datetime(record["lpep_pickup_datetime"])
                     + pd.to_timedelta(random.randint(1, 60), unit="m")
-                ).isoformat()
-                record["request_datetime"] = (
-                    pd.to_datetime(record["lpep_pickup_datetime"])
-                    - pd.to_timedelta(random.randint(1, 120), unit="m")
                 ).isoformat()
 
                 sample_data.append(record)

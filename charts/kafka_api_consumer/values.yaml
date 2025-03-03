@@ -3,7 +3,7 @@ container_name: datagen-consumer
 namespace: dev
 
 deployment:
-  replicas: 1
+  replicas: 3
 
 configmap:
   name: myconfigmap-consumer
@@ -21,8 +21,9 @@ service:
   targetPort: 8080
 
 env:
-  TOPIC: taxitrips
-  MESSAGES_BATCH_SIZE: 5
+  TOPIC: "cobot"
+  MESSAGES_BATCH_SIZE: 500
+  SLEEP_TIME_SEC: 10
   KAFKA_BOOTSTRAP_SERVERS: "kafka-plain.dev.svc.cluster.local:9092"
   KAFKA_RELEASE: "kafka-plain"
   #backup

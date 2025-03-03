@@ -12,7 +12,7 @@ load_dotenv()
 def main():
     try:
         # if parameter is null, pass kubernetes env values
-        dsname = os.getenv("dsname", "taxitrips")
+        dsname = os.getenv("DSNAME", "taxitripszz")
         logger.debug(f"Debug >>>> dsname: {dsname}")
 
         logger.info("Kafka API Producer is running")

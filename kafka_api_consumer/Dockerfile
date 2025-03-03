@@ -20,7 +20,7 @@ COPY src/ ./src/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set default environment variable
-ENV topic=taxitrips
+ENV TOPIC=taxitrips
 ENV KAFKA_BOOTSTRAP_SERVERS="localhost:9092"
 ENV SLEEP_TIME_SEC=5
 ENV MESSAGES_BATCH_SIZE=100

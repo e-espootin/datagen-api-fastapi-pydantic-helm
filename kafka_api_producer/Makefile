@@ -1,14 +1,14 @@
-include .env
-export
+# include .env
+# export
 
 
 .PHONY: install run test clean
 
-DSNAME ?=taxitrips
-API_LOCAL_URL ?=http://localhost:8080
-KAFKA_BOOTSTRAP_SERVERS ?=localhost:9092
-ALL_DATASETS ?='{"taxitrips":"/taxitrips/?num_samples=1"}'
-SLEEP_TIME_SEC ?= 3
+# DSNAME ?=taxitrips
+# API_LOCAL_URL ?=http://localhost:8080
+# KAFKA_BOOTSTRAP_SERVERS ?=localhost:9092
+# ALL_DATASETS ?='{"taxitrips":"/taxitrips/?num_samples=1"}'
+# SLEEP_TIME_SEC ?= 3
 
 install:
 	uv pip install -r requirements.txt

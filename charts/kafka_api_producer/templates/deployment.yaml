@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}
+  name: {{ .Release.Name }}-{{ .Values.appName }}
   namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.appName }}
+    app: {{ .Release.Name }}-{{ .Values.appName }}
     # Add recommended Kubernetes labels
-    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.appName }}
     app.kubernetes.io/version: {{ .Values.image.tag }}
 spec:
   replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}
+      app: {{ .Release.Name }}-{{ .Values.appName }}
       tier: frontend
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}
+        app: {{ .Release.Name }}-{{ .Values.appName }}
         tier: frontend
     spec:
       containers:
-      - name: {{ .Values.container_name }}
+      - name: {{ .Release.Name }}-{{ .Values.container_name }}
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
         env:

@@ -11,6 +11,9 @@ class ISensor(ABC):
     def read_data(self) -> dict:
         pass
 
+    def read_batch_data(self, num_samples: int) -> list[dict]:
+        pass
+
     @abstractmethod
     def get_id(self) -> str:
         pass
@@ -33,6 +36,14 @@ class TemperatureSensor(ISensor):
             "reg_timestamp": int(datetime.utcnow().timestamp()),
             "event_time": str(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")),
         }
+        return data
+
+    async def read_batch_data(self, num_samples: int) -> list[dict]:
+        data = []
+        for _ in range(num_samples):
+            data.append(
+                await self.read_data()
+            )
         return data
 
     def get_id(self) -> str:
@@ -63,7 +74,14 @@ class Cobots(ISensor):
             city=self.fake.city(),
             country=self.fake.country(),
         )
+        return data
 
+    async def read_batch_data(self, num_samples: int) -> list[dict]:
+        data = []
+        for _ in range(num_samples):
+            data.append(
+                await self.read_data()
+            )
         return data
 
     def get_id(self) -> str:

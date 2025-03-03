@@ -1,4 +1,4 @@
-from kafka_consumer import KafkaConsumer
+from xkafka.kafka_consumer import KafkaConsumer
 from utils.logger import setup_logger
 from dotenv import load_dotenv
 import os

@@ -2,6 +2,7 @@ import boto3
 import json
 import os
 import pandas as pd
+from datetime import datetime
 from io import StringIO
 from dotenv import load_dotenv
 from utils.logger import setup_logger
@@ -35,6 +36,24 @@ class S3Uploader:
                 "AWS credentials not found in environment variables")
             # raise ValueError(
             #     "AWS credentials not found in environment variables")
+
+    def parse_datetime(self, date_string) -> datetime:
+        '''Parse a datetime string into a datetime object'''
+        formats = [
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%dT%H:%M:%S.%f",
+            '%Y-%m-%d',
+            '%d.%m.%Y',
+            '%d/%m/%Y',
+            '%Y-%m-%d %H:%M:%S',
+            '%d/%m/%Y %I:%M %p'
+        ]
+
+        for fmt in formats:
+            try:
+                return datetime.strptime(date_string, fmt)
+            except ValueError:
+                continue
 
     def export_messages_datalake_S3(self, messages: list, topic: str):
         """CSV file upload to S3"""
@@ -79,14 +98,28 @@ class S3Uploader:
         """Parquet file upload to S3"""
         try:
             logger.info(f"Exporting messages to S3 as Parquet: {topic}")
+
+            # looking for datetime column
+            if not partition_data_col:
+                # datetime_cols = [
+                #     col for col in df.columns if pd.api.types.is_datetime64_any_dtype(df[col])]
+                # logger.info(f"datetime_cols: {datetime_cols}")
+                candidate_datetime_cols = [col for col in df.columns if col in [
+                    "log_datetime", "event_time", "created_at", "updated_at", "timecreated", "timemodified"]]
+                logger.info(
+                    f"candidate_datetime_cols: {candidate_datetime_cols}")
+                candidate_col_name = candidate_datetime_cols[0]
+            else:
+                candidate_col_name = partition_data_col
+
             # set partition column
-            if partition_data_col:
-                df[partition_data_col] = pd.to_datetime(
-                    df[partition_data_col], format="%Y-%m-%dT%H:%M:%S.%f"
-                )
-                df["year"] = df[partition_data_col].dt.year
-                df["month"] = df[partition_data_col].dt.month
-                df["day"] = df[partition_data_col].dt.day
+            if candidate_col_name:
+                df[candidate_col_name] = df[candidate_col_name].apply(
+                    lambda x: pd.to_datetime(self.parse_datetime(x)))
+
+                df["year"] = df[candidate_col_name].dt.year
+                df["month"] = df[candidate_col_name].dt.month
+                df["day"] = df[candidate_col_name].dt.day
                 partition_cols = ["year", "month", "day"]
 
             # File name with date-time stamp
@@ -105,7 +138,7 @@ class S3Uploader:
             # parquet_buffer = io.BytesIO()
 
             # If partition columns are provided, construct the partition path
-            if partition_data_col:
+            if candidate_col_name:
                 # Validate partition columns exist in DataFrame
                 if "year" not in df.columns:
                     raise ValueError(

@@ -1,17 +1,30 @@
 .PHONY: deploy dry-run kafka
 
-
+datagen_api_install:
+	cd datagen_api && helm install datagen-api . \
+		--set image.pullPolicy=Always \
+		--set image.tag=latest
 
 kafka_api_producer_install:
 	cd kafka_api_producer && helm install producer . \
 		--set image.pullPolicy=Always \
-		--set image.tag=latest
+		--set image.tag=latest \
+		--set env.DSNAME=taxitrips 
+		
 kafka_api_producer_upgrade:
-	cd kafka_api_producer && helm upgrade producer .
+	cd kafka_api_producer && helm upgrade producer . \
+		--set env.DSNAME=taxitrips
 kafka_api_producer_dry_run:
 	cd kafka_api_producer && helm install kafka-apip . \
 		--set image.pullPolicy=Always \
 		--set image.tag=latest \
+		--dry-run --debug
+
+kafka_api_producer_install_param:
+	cd kafka_api_producer && helm upgrade cobot . \
+		--set image.pullPolicy=Always \
+		--set image.tag=latest \
+		--set env.DSNAME=cobot 
 		--dry-run --debug
 
 kafka_api_consumer_install:
@@ -30,7 +43,7 @@ aws-zoho-infra:
 	kubectl apply -f secrets/configmap_aws_zoho.yaml -n dev
 
 encode:
-	echo -n "Pu6AXRqoBMAWMuKUeGQhPZL3FQtnI1XokkTz1gxB" | base64
+	echo -n "xx" | base64
 
 kafkaui:
 	cd kafka-ui && helm install kafkaui . -n dev

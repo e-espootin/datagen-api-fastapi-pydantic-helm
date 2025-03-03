@@ -26,3 +26,6 @@ docker-dev:
 	docker run -it -e KAFKA_BOOTSTRAP_SERVERS=localhost:9092 -e topic=taxitrips e4espootin/kafka_api_consumer 
 
 
+clean:
+	rm -rf .venv
+	find . -type d -name "__pycache__" -exec rm -r {} +

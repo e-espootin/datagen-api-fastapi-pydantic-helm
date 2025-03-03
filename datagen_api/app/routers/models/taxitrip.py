@@ -58,7 +58,7 @@ class TaxiTrip(BaseModel):
     log_datetime: datetime
     lpep_pickup_datetime: datetime
     lpep_dropoff_datetime: Optional[datetime] = None
-    request_datetime: Optional[datetime] = None
+    request_datetime: datetime
     passenger_count: int = Field(ge=1, le=4)
     trip_distance: float
     ratecode_id: int

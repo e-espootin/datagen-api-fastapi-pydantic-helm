@@ -38,6 +38,7 @@ class ApiFactory:
     def list_handler(self, dsname: str):
         try:
             api_list = self.get_list(dsname=dsname)
+            logger.info(f"api_local_url: {self.api_local_url}")
             logger.info(f"API list: {api_list}")
 
             for api_name, api_url in api_list.items():

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Dict
+from datetime import datetime
 
 
 class Cobots_Gen(BaseModel):
@@ -17,6 +18,16 @@ class Cobots_Gen(BaseModel):
         from_attributes = True
 
 
+class Temperature_Gen(BaseModel):
+    sensor_id: str
+    temperature: float
+    reg_timestamp: int
+    event_time: str
+
+    class Config:
+        from_attributes = True
+
+
 class SCARA_Gen(BaseModel):
     id: str
     temperature: float
@@ -25,16 +36,6 @@ class SCARA_Gen(BaseModel):
     timestamp: str
     location: Dict = None
     city: str
-
-    class Config:
-        from_attributes = True
-
-
-class Temperature_Gen(BaseModel):
-    sensor_id: str
-    temperature: float
-    reg_timestamp: int
-    event_time: str
 
     class Config:
         from_attributes = True

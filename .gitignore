@@ -1,4 +1,17 @@
 docker_make/*
 .env
-.archive/*
-charts/secrets/*
+.archive/
+charts/secrets/
+databricks_cli/
+databricks_dev/*
+kafka_api_consumer/.venv/
+kafka_api_consumer/.ruff_cache/
+kafka_api_producer/.venv/
+kafka_api_producer/.ruff_cache/
+#temporary ignore
+simple_api_call_dump/
+simple_api_call_dump_prefect/
+
+
+# charts
+charts/kafka-ui/

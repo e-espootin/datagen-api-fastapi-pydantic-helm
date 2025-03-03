@@ -19,7 +19,7 @@ load_dotenv()
 class KafkaConsumer:
     def __init__(self):
         self.consumer = None
-        self.group_id = os.getenv("group_id", "my_group_id")
+        self.group_id = os.getenv("GROUP_ID", "my_group_id")
         # self.admin_client = None
         self.get_conn_from_pool()
         self.s3_uploader = S3Uploader()
@@ -112,7 +112,10 @@ class KafkaConsumer:
                             raise KafkaException(msg.error())
                     else:
                         # Process the message
+                        # logger.info(json.loads(msg.value().decode("utf-8")))
                         for item in json.loads(msg.value().decode("utf-8")):
+                            if type(item) is not dict:
+                                continue
                             messages.append(item)
                         logger.debug(
                             f"message length: {len(messages)}, time is: {datetime.now()}"
@@ -122,16 +125,17 @@ class KafkaConsumer:
 
                     # export messages to parquet
                     if len(messages) >= messages_batch_size:
+
                         df = pd.DataFrame(messages)
                         logger.debug(df.info())
-
+                        # logger.info(messages)
                         # estimate size
                         memory_bytes = df.memory_usage(deep=True).sum()
                         memory_mb = memory_bytes / (1024**2)
                         logger.info(f"DataFrame size: {memory_mb:.2f} MB")
                         # yield messages
                         self.s3_uploader.export_messages_datalake_S3_parquet(
-                            df=df, topic=topic, partition_data_col="log_datetime"
+                            df=df, topic=topic
                         )
                         messages = []
                         break
@@ -162,20 +166,22 @@ class KafkaConsumer:
         try:
             #
             logger.info("getting topics list")
-            if topic is None:
+            if topic is None or topic == "":
                 topics = self.get_all_topics()
                 logger.info("Topics has been read!")
             #
             while True:
-                if topic is None:
+                if topic is None or topic == "":
                     for item in topics:
                         if item == "__consumer_offsets":
                             continue
+                        logger.info(f"Consuming messages from topic: {item}")
                         self.consume_messages(
                             topic=item,
                             messages_batch_size=int(self.messages_batch_size),
                         )
                 else:
+                    logger.info(f"start consume topic(el): {topic}")
                     self.consume_messages(
                         topic=topic, messages_batch_size=int(
                             self.messages_batch_size)

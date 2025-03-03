@@ -13,21 +13,21 @@ WORKDIR /app
 
 # Copy
 COPY requirements.txt Makefile ./
-COPY .env ./
+# COPY .env ./
 COPY src/ ./src/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set default environment variable
-ENV DSNAME=taxitrips
-ENV KAFKA_BOOTSTRAP_SERVERS="localhost:9092"
-ENV API_LOCAL_URL="http://localhost:8080"
-ENV SLEEP_TIME_SEC=5
+# ENV DSNAME=taxitrips
+# ENV KAFKA_BOOTSTRAP_SERVERS="localhost:9092"
+# ENV API_LOCAL_URL="http://localhost:8080"
+# ENV SLEEP_TIME_SEC=5
 # Run the application
-# ENTRYPOINT ["make"]
-# CMD ["run"]
+ENTRYPOINT ["make"]
+CMD ["run"]
 
 # dev
-ENTRYPOINT ["python"]
-CMD ["src/main.py"]
+# ENTRYPOINT ["python"]
+# CMD ["src/main.py"]
