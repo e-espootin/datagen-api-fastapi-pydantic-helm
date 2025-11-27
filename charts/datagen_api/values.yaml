@@ -1,16 +1,16 @@
 appName: datagen-api
 container_name: datagen-api-container
-port: 8080
+port: 8095
 
 service:
-  port: 8080
-  targetPort: 8080
+  port: 8095
+  targetPort: 8095
   type: ClusterIP
 
 namespace: dev
 
 deployment:
-  replicas: 1
+  replicas: 2
 
 configmap:
   name: datagen-api-configmap
