@@ -1,10 +1,9 @@
 appName: datagen-api
 container_name: datagen-api-container
-port: 8095
 
 service:
-  port: 8095
-  targetPort: 8095
+  port: 9080
+  targetPort: 8080
   type: ClusterIP
 
 namespace: dev
@@ -20,6 +19,3 @@ configmap:
 image:
   name: e4espootin/datagen_api
   tag: latest
-
-env:
-  var1: AWS_ACCESS_KEY_ID

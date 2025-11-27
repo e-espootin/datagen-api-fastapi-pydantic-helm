@@ -26,7 +26,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
         ports:
         - name: http
-          containerPort: {{ .Values.port }}
+          containerPort: {{ .Values.service.targetPort }}
           protocol: TCP
         envFrom:
         - configMapRef:
@@ -42,7 +42,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.service.port }}
+            port: {{ .Values.service.targetPort }}
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 5
@@ -50,7 +50,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.service.port }}
+            port: {{ .Values.service.targetPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
