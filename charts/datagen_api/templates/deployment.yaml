@@ -23,7 +23,7 @@ spec:
       containers:
       - name: {{ .Values.container_name }}
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "Always" }}
         ports:
         - name: http
           containerPort: {{ .Values.service.targetPort }}
@@ -33,11 +33,11 @@ spec:
             name: {{ .Values.configmap.name }}
         resources:
           requests:
-            memory: "16Mi"
-            cpu: "50m"
-          limits:
             memory: "128Mi"
-            cpu: "100m"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         # Add healthcheck
         livenessProbe:
           httpGet:

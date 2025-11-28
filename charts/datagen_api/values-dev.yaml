@@ -1,6 +1,5 @@
 namespace: dev
 
-
 configmap:
   data:
     CUSTOM_HEADER: 'DEV environment!'

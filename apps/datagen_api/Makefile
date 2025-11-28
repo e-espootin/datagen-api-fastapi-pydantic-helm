@@ -19,6 +19,6 @@ docker-run:
 	docker run --rm -p 8080:8080 --name xx e4espootin/datagen_api
 
 docker-build:
-	docker build -t e4espootin/datagen_api .
+	docker build --platform linux/amd64 -t e4espootin/datagen_api .
 	docker push e4espootin/datagen_api
 	

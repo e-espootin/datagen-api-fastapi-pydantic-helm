@@ -1,0 +1,2 @@
+.PHONY: deploy dry-run
+

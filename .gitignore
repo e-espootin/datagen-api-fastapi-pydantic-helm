@@ -1,2 +1,8 @@
 docker_make/*
 .env
+*.tgz
+.venv
+.DS_Store
+.lock
+.log
+uv.lock
