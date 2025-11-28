@@ -4,7 +4,7 @@ container_name: datagen-api-container
 service:
   port: 9080
   targetPort: 8080
-  type: ClusterIP
+  type: LoadBalancer
 
 namespace: dev
 
